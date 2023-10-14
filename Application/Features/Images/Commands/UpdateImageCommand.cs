@@ -1,17 +1,20 @@
 ﻿using Application.Models.Images;
+using Application.PipelineBehaviours.Contracts;
 using Application.Repositories;
 using AutoMapper;
 using MediatR;
 
 namespace Application.Features.Images.Commands
 {
-    public class UpdateImageCommand : IRequest<bool>
+    public class UpdateImageCommand : IRequest<bool>, ICacheRemoval
     {
         public UpdateImage UpdateImage { get; set; }
+        public List<string?> CacheKeys { get; set; }
 
         public UpdateImageCommand(UpdateImage updateImage)
         {
             UpdateImage = updateImage;
+            CacheKeys = new() { $"GetImageById:{UpdateImage.Id}", "GetAllImages" }; // For deleting from cache.
         }
     }
 

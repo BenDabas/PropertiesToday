@@ -1,4 +1,5 @@
 ﻿using Application.Models.Images;
+using Application.PipelineBehaviours.Contracts;
 using Application.Repositories;
 using AutoMapper;
 using Domain;
@@ -6,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Images.Commands
 {
-    public class CreateImageCommand : IRequest<bool>
+    public class CreateImageCommand : IRequest<bool>, IValidatable, ILogable
     {
         public NewImage NewImage { get; set; }
 

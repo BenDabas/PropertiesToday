@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Properties.Queries
 {
-    public class GetAllPropertiesQuery : IRequest<List<PropertyDto>>, ICacheable
+    public class GetAllPropertiesQuery : IRequest<List<PropertyDto>>, ICacheable, ILogable
     {
         public string? CacheKey { get; set; }
         public bool BypassCache { get; set; }

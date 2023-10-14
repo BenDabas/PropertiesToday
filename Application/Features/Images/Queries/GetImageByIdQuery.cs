@@ -1,17 +1,22 @@
 ﻿using Application.Models.Images;
+using Application.PipelineBehaviours.Contracts;
 using Application.Repositories;
 using AutoMapper;
 using MediatR;
 
 namespace Application.Features.Images.Queries
 {
-    public class GetImageByIdQuery : IRequest<ImageDto?>
+    public class GetImageByIdQuery : IRequest<ImageDto?>, ICacheable
     {
         public int ImageId { get; set; }
+        public string? CacheKey { get; set; }
+        public bool BypassCache { get; set; }
+        public TimeSpan? SlidingExpiration { get; set; }
 
         public GetImageByIdQuery(int imageId)
         {
             ImageId = imageId;
+            CacheKey = $"GetImageById:{ImageId}";
         }
     }
 

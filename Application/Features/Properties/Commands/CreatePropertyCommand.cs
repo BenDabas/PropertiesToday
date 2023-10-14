@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Properties.Commands
 {
-    public class CreatePropertyCommand : IRequest<bool>, IValidatable
+    public class CreatePropertyCommand : IRequest<bool>, IValidatable, ILogable
     {
         public NewProperty PropertyRequest { get; set; }
 

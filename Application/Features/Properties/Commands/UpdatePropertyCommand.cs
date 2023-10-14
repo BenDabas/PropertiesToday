@@ -1,4 +1,5 @@
 ﻿using Application.Models.Properties;
+using Application.PipelineBehaviours.Contracts;
 using Application.Repositories;
 using AutoMapper;
 using Domain;
@@ -6,13 +7,15 @@ using MediatR;
 
 namespace Application.Features.Properties.Commands
 {
-    public class UpdatePropertyCommand : IRequest<bool>
+    public class UpdatePropertyCommand : IRequest<bool>, ICacheRemoval
     {
         public UpdateProperty UpdateProperty { get; set; }
+        public List<string?> CacheKeys { get; set; }
 
         public UpdatePropertyCommand(UpdateProperty updateProperty)
         {
             UpdateProperty = updateProperty;
+            CacheKeys = new() { $"GetPropertyById:{UpdateProperty.Id}" , "GetProperties" }; // For deleting from cache.
         }
     }
 
